@@ -1,0 +1,45 @@
+name: Game of Life — atualizar SVG
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"   # toda segunda-feira às 08:00 UTC
+  workflow_dispatch:       # botão manual na aba Actions
+  push:
+    branches: [main]
+    paths:
+      - "generate_life.py" # só roda se o script mudar, não em todo push
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Instalar dependências
+        run: pip install requests
+
+      - name: Gerar SVG
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: python generate_life.py
+
+      - name: Commit e push do SVG
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add profile/game-of-life.svg
+          git diff --staged --quiet \
+            && echo "Nenhuma mudança — commit ignorado." \
+            || git commit -m "chore: atualizar game of life [skip ci]"
+          git push
