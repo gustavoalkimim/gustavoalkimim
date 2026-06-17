@@ -197,7 +197,7 @@ def generate_svg(frames: list) -> str:
     lines.append(
         f'<text x="{svg_w // 2}" y="{header_h // 2 + 5}" '
         f'text-anchor="middle" font-family="monospace" font-size="12" '
-        f'fill="{COLOR_TEXT}">Conway\'s Game of Life · lucascoelho74</text>'
+        f'fill="{COLOR_TEXT}">Conway\'s Game of Life · {GITHUB_USERNAME}</text>'
     )
 
     # ── Células ──
