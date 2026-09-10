@@ -93,12 +93,23 @@ student:
 
 <br/>
 
+## 🚀 Projetos Principais
+
+- **[PetVet](https://github.com/gustavoalkimim/petvet)** — MVP de uma startup B2B2C (clínica veterinária → tutor de pet). Backend Java/Spring Boot com JWT e camada de segurança, frontend React + TypeScript. Projeto real, ainda incompleto, com bugs conhecidos documentados no próprio README.
+- **[SecureLoginPUC](https://github.com/gustavoalkimim/secureloginpuc)** — Autenticação com Spring Security (login, BCrypt, controle de papel admin/usuário). Cadastro e recuperação de senha ainda são apenas interface, sem persistência.
+- **[Fisiogrip](https://github.com/Mavilaa/Fisiogrip)** — Projeto em equipe (colaborador): carteirinha digital de acompanhamento de fisioterapia, feito em MIT App Inventor.
+- **[Soc Ops](https://github.com/gustavoalkimim/socops-microsoft-workshop)** — Bingo social para dinâmicas de equipe, feito em workshop da Microsoft com GitHub Copilot em fluxo multi-agente.
+
+<br/>
+
 ## 📌 Featured Repositories
 
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=Teste&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=gustavoalkimim&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=petvet&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=secureloginpuc&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=aed1-puc&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=socops-microsoft-workshop&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
 
 </div>
 
