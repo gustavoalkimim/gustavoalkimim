@@ -1,0 +1,28 @@
+name: Live Activity — atualizar README
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # a cada 6 horas
+  workflow_dispatch:        # botão manual na aba Actions
+
+# evita dois workflows do perfil fazendo push ao mesmo tempo
+concurrency:
+  group: perfil-commits
+  cancel-in-progress: false
+
+jobs:
+  activity:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Atualizar seção de atividade
+        uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          GH_USERNAME: gustavoalkimim
+          MAX_LINES: 5
+          COMMIT_MSG: "chore: atualizar live activity [skip ci]"

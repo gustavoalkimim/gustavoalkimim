@@ -62,15 +62,15 @@ student:
 
 ## 📊 GitHub Analytics
 
+> Generated daily via GitHub Actions ([lowlighter/metrics](https://github.com/lowlighter/metrics)).
+
 <div align="center">
 
-<img src="https://github-readme-stats.vercel.app/api?username=gustavoalkimim&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true&bg_color=0d1117" width="49%" />
+<img src="./profile/metrics.svg" />
+
 <img src="https://streak-stats.demolab.com/?user=gustavoalkimim&theme=tokyonight&hide_border=true&background=0d1117" width="49%" />
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=gustavoalkimim&layout=compact&theme=tokyonight&hide_border=true&bg_color=0d1117" width="49%" />
-<img src="https://github-profile-trophy.vercel.app/?username=gustavoalkimim&theme=tokyonight&no-frame=true&column=4&margin-w=8&margin-h=8" width="49%" />
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=gustavoalkimim&theme=tokyo-night&hide_border=true&bg_color=0d1117&area=true" width="100%" />
+<img src="./profile/metrics-calendario.svg" />
 
 </div>
 
@@ -99,19 +99,6 @@ student:
 - **[SecureLoginPUC](https://github.com/gustavoalkimim/secureloginpuc)** — Autenticação com Spring Security (login, BCrypt, controle de papel admin/usuário). Cadastro e recuperação de senha ainda são apenas interface, sem persistência.
 - **[Fisiogrip](https://github.com/Mavilaa/Fisiogrip)** — Projeto em equipe (colaborador): carteirinha digital de acompanhamento de fisioterapia, feito em MIT App Inventor.
 - **[Soc Ops](https://github.com/gustavoalkimim/socops-microsoft-workshop)** — Bingo social para dinâmicas de equipe, feito em workshop da Microsoft com GitHub Copilot em fluxo multi-agente.
-
-<br/>
-
-## 📌 Featured Repositories
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=petvet&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=secureloginpuc&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=aed1-puc&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=gustavoalkimim&repo=socops-microsoft-workshop&theme=tokyonight&hide_border=true&bg_color=0d1117" width="48%" />
-
-</div>
 
 <br/>
 
