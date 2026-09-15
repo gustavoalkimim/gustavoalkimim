@@ -21,11 +21,82 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Atualizar seção de atividade
-        uses: jamesgeorge007/github-activity-readme@master
+      - name: Buscar eventos públicos
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          GH_USERNAME: gustavoalkimim
-          MAX_LINES: 5
-          COMMIT_MSG: "chore: atualizar live activity [skip ci]"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api "users/gustavoalkimim/events/public?per_page=100" > "$RUNNER_TEMP/eventos.json"
+
+      # escreve as últimas atividades entre os marcadores START_SECTION/END_SECTION do README
+      - name: Atualizar seção de atividade
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+
+          USUARIO = "gustavoalkimim"
+          MAX_LINHAS = 5
+          IGNORAR_REPOS = {f"{USUARIO}/{USUARIO}"}  # pushes no próprio perfil só poluem a lista
+
+          def link(repo):
+              return f"[{repo}](https://github.com/{repo})"
+
+          def descrever(ev):
+              tipo, repo, p = ev["type"], ev["repo"]["name"], ev.get("payload", {})
+              if tipo == "PushEvent":
+                  n = p.get("size") or len(p.get("commits", [])) or 1
+                  return f"⬆️ Pushed {n} commit{'s' if n > 1 else ''} to {link(repo)}"
+              if tipo == "CreateEvent":
+                  if p.get("ref_type") == "repository":
+                      return f"🆕 Created repository {link(repo)}"
+                  return f"🌿 Created {p.get('ref_type')} `{p.get('ref')}` in {link(repo)}"
+              if tipo == "WatchEvent":
+                  return f"⭐ Starred {link(repo)}"
+              if tipo == "ForkEvent":
+                  return f"🍴 Forked {link(repo)}"
+              if tipo == "MemberEvent":
+                  return f"🤝 Joined {link(repo)} as a collaborator"
+              if tipo == "PublicEvent":
+                  return f"🌍 Made {link(repo)} public"
+              if tipo == "PullRequestEvent":
+                  pr = p["pull_request"]
+                  acao = "Merged" if pr.get("merged") else p.get("action", "").capitalize()
+                  return f"🔀 {acao} PR [#{pr['number']}]({pr['html_url']}) in {link(repo)}"
+              if tipo == "IssuesEvent":
+                  issue = p["issue"]
+                  return f"❗ {p.get('action', '').capitalize()} issue [#{issue['number']}]({issue['html_url']}) in {link(repo)}"
+              if tipo == "ReleaseEvent":
+                  rel = p["release"]
+                  return f"🏷️ Released [{rel['tag_name']}]({rel['html_url']}) in {link(repo)}"
+              return None
+
+          eventos = json.load(open(os.path.join(os.environ["RUNNER_TEMP"], "eventos.json"), encoding="utf-8"))
+          linhas = []
+          for ev in eventos:
+              if ev["repo"]["name"] in IGNORAR_REPOS:
+                  continue
+              texto = descrever(ev)
+              if not texto:
+                  continue
+              dia, mes = ev["created_at"][8:10], ev["created_at"][5:7]
+              linha = f"{texto} · {dia}/{mes}"
+              if linha not in linhas:
+                  linhas.append(linha)
+              if len(linhas) == MAX_LINHAS:
+                  break
+
+          corpo = "\n".join(f"{i}. {l}" for i, l in enumerate(linhas, 1)) or "_No recent public activity._"
+          readme = open("README.md", encoding="utf-8").read()
+          novo = re.sub(r"(<!--START_SECTION:activity-->).*?(<!--END_SECTION:activity-->)",
+                        lambda m: f"{m.group(1)}\n{corpo}\n{m.group(2)}", readme, flags=re.S)
+          open("README.md", "w", encoding="utf-8").write(novo)
+          print(corpo)
+          PY
+
+      - name: Commit e push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet \
+            && echo "Nenhuma mudança — commit ignorado." \
+            || git commit -m "chore: atualizar live activity [skip ci]"
+          git push
