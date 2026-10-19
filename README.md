@@ -80,11 +80,11 @@ student:
 > Auto-updated every 6 hours via GitHub Actions.
 
 <!--START_SECTION:activity-->
-1. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
-2. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
-3. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
-4. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 22/09
-5. 🌿 Created branch `main` in [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 22/09
+1. 🌿 Created branch `Gustavo_Henrique` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 18/10
+2. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
+3. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
+4. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
+5. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 22/09
 <!--END_SECTION:activity-->
 
 <br/>
