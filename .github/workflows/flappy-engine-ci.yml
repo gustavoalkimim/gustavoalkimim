@@ -1,0 +1,41 @@
+name: Flappy — testar engine
+
+on:
+  push:
+    paths:
+      - "flappy/engine/**"
+  pull_request:
+    paths:
+      - "flappy/engine/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compilar com warnings como erro
+        run: make -C flappy/engine CFLAGS="-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror"
+
+      - name: Treino roda e salva a população
+        run: |
+          flappy/engine/flappy train "$RUNNER_TEMP/pop.txt" 1 20 | tee "$RUNNER_TEMP/stats.json"
+          jq -e '.generation == 0 and .best > 0' "$RUNNER_TEMP/stats.json"
+          grep -q "^generation 1$" "$RUNNER_TEMP/pop.txt"
+
+      - name: Replay é determinístico
+        run: |
+          a=$(flappy/engine/flappy replay "$RUNNER_TEMP/pop.txt" 42 800 4 | sha256sum)
+          b=$(flappy/engine/flappy replay "$RUNNER_TEMP/pop.txt" 42 800 4 | sha256sum)
+          echo "$a"; echo "$b"
+          [ "$a" = "$b" ]
+
+      - name: Pássaros e canos ficam dentro do mundo
+        run: |
+          flappy/engine/flappy replay "$RUNNER_TEMP/pop.txt" 7 2000 2 | jq -e '
+            .frames | all(
+              (.b | all(.[1] >= 0 and .[1] <= 360)) and
+              (.p | all(.[1] >= 0 and .[2] <= 360 and .[2] - .[1] >= 91.5))
+            )'
