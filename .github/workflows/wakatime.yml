@@ -1,0 +1,46 @@
+name: WakaTime — atualizar card
+
+on:
+  schedule:
+    - cron: "30 6 * * *"   # todo dia às 06:30 UTC, depois do metrics
+  workflow_dispatch:        # botão manual na aba Actions
+
+# evita dois workflows do perfil fazendo push ao mesmo tempo
+concurrency:
+  group: perfil-commits
+  cancel-in-progress: false
+
+jobs:
+  wakatime:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    env:
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+
+    steps:
+      - name: Checkout
+        if: env.WAKATIME_API_KEY != ''
+        uses: actions/checkout@v4
+
+      # sem o secret o workflow só avisa, em vez de falhar todo dia
+      - name: Secret ausente
+        if: env.WAKATIME_API_KEY == ''
+        run: echo "::warning::Crie o secret WAKATIME_API_KEY (Settings → Secrets and variables → Actions)."
+
+      - name: Gerar SVG
+        if: env.WAKATIME_API_KEY != ''
+        run: python3 profile/wakatime.py
+
+      - name: Commit e push
+        if: env.WAKATIME_API_KEY != ''
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add profile/wakatime.svg
+          git diff --staged --quiet \
+            && echo "Nenhuma mudança — commit ignorado." \
+            || git commit -m "chore: atualizar wakatime [skip ci]"
+          git push

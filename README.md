@@ -60,45 +60,10 @@ student:
 
 <br/>
 
-## 📊 GitHub Analytics
-
-> Generated daily via GitHub Actions ([lowlighter/metrics](https://github.com/lowlighter/metrics)).
-
-<div align="center">
-
-<img src="./profile/metrics.svg" />
-
-<img src="https://streak-stats.demolab.com/?user=gustavoalkimim&theme=tokyonight&hide_border=true&background=0d1117" width="49%" />
-
-<img src="./profile/metrics-calendario.svg" />
-
-</div>
-
-<br/>
-
-## 🤖 Live Activity
-> Auto-updated every 6 hours via GitHub Actions.
-
-<!--START_SECTION:activity-->
-1. 🌿 Created branch `Gustavo_Henrique` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 18/10
-2. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
-3. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
-4. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
-5. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 22/09
-<!--END_SECTION:activity-->
-
-<br/>
-
-## 🧬 Conway's Game of Life
-> Seeded from my real contribution history · regenerated every Monday via GitHub Actions.
-
-<div align="center">
-<img src="./profile/game-of-life.svg" />
-</div>
-
-<br/>
-
 ## ♟️ Community Chess vs. My C Engine
+
+[![engine tests](https://img.shields.io/github/actions/workflow/status/gustavoalkimim/gustavoalkimim/chess-engine-ci.yml?branch=main&label=engine%20tests&style=flat-square&labelColor=302b63)](https://github.com/gustavoalkimim/gustavoalkimim/actions/workflows/chess-engine-ci.yml) [![move bot](https://img.shields.io/github/actions/workflow/status/gustavoalkimim/gustavoalkimim/chess.yml?branch=main&label=move%20bot&style=flat-square&labelColor=302b63)](https://github.com/gustavoalkimim/gustavoalkimim/actions/workflows/chess.yml) ![perft](https://img.shields.io/badge/perft-6%2F6%20positions-A685E2?style=flat-square&labelColor=302b63)
+
 > Everyone plays White together, one move per issue · my chess engine, written from scratch in C, plays Black.
 
 <div align="center">
@@ -119,6 +84,9 @@ student:
 <br/>
 
 ## 🧠 Tetris AI, Learning in Public
+
+[![engine tests](https://img.shields.io/github/actions/workflow/status/gustavoalkimim/gustavoalkimim/tetris-engine-ci.yml?branch=main&label=engine%20tests&style=flat-square&labelColor=302b63)](https://github.com/gustavoalkimim/gustavoalkimim/actions/workflows/tetris-engine-ci.yml) [![weekly training](https://img.shields.io/github/actions/workflow/status/gustavoalkimim/gustavoalkimim/tetris.yml?branch=main&label=weekly%20training&style=flat-square&labelColor=302b63)](https://github.com/gustavoalkimim/gustavoalkimim/actions/workflows/tetris.yml)
+
 > A neural network written from scratch in C and evolved by a genetic algorithm — no human games, no hand-tuned weights. It started from random weights and trains 2 more generations every Monday.
 
 <div align="center">
@@ -137,12 +105,68 @@ student:
 
 <br/>
 
+## 🧬 Conway's Game of Life
+> Seeded from my real contribution history · regenerated every Monday via GitHub Actions.
+
+<div align="center">
+<img src="./profile/game-of-life.svg" />
+</div>
+
+<br/>
+
 ## 🚀 Projetos Principais
 
 - **[PetVet](https://github.com/gustavoalkimim/petvet)** — MVP de uma startup B2B2C (clínica veterinária → tutor de pet). Backend Java/Spring Boot com JWT e camada de segurança, frontend React + TypeScript. Projeto real, ainda incompleto, com bugs conhecidos documentados no próprio README.
 - **[SecureLoginPUC](https://github.com/gustavoalkimim/secureloginpuc)** — Autenticação com Spring Security (login, BCrypt, controle de papel admin/usuário). Cadastro e recuperação de senha ainda são apenas interface, sem persistência.
 - **[Fisiogrip](https://github.com/Mavilaa/Fisiogrip)** — Projeto em equipe (colaborador): carteirinha digital de acompanhamento de fisioterapia, feito em MIT App Inventor.
 - **[Soc Ops](https://github.com/gustavoalkimim/socops-microsoft-workshop)** — Bingo social para dinâmicas de equipe, feito em workshop da Microsoft com GitHub Copilot em fluxo multi-agente.
+
+<br/>
+
+## 📊 Stats & Activity
+
+<details>
+<summary><b>📈 GitHub Analytics</b></summary>
+
+> Generated daily via GitHub Actions ([lowlighter/metrics](https://github.com/lowlighter/metrics)).
+
+<div align="center">
+
+<img src="./profile/metrics.svg" />
+
+<img src="https://streak-stats.demolab.com/?user=gustavoalkimim&theme=tokyonight&hide_border=true&background=0d1117" width="49%" />
+
+<img src="./profile/metrics-calendario.svg" />
+
+</div>
+
+</details>
+
+<details>
+<summary><b>⏱️ This Week in Code</b></summary>
+
+> Coding time tracked by WakaTime · refreshed daily via GitHub Actions.
+
+<div align="center">
+<img src="./profile/wakatime.svg" />
+</div>
+
+</details>
+
+<details>
+<summary><b>🤖 Live Activity</b></summary>
+
+> Auto-updated every 6 hours via GitHub Actions.
+
+<!--START_SECTION:activity-->
+1. 🌿 Created branch `Gustavo_Henrique` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 18/10
+2. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
+3. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
+4. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
+5. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 22/09
+<!--END_SECTION:activity-->
+
+</details>
 
 <br/>
 

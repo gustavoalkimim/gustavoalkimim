@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="250" viewBox="0 0 860 250">
+<style>.t{font-family:'Fira Code','Segoe UI',monospace;fill:#c9d1d9}.m{fill:#8b949e}.bar{transform-origin:left;transform:scaleX(0);animation:grow 1.1s cubic-bezier(.4,0,.2,1) forwards}@keyframes grow{to{transform:scaleX(1)}}</style>
+<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#A685E2"/><stop offset="1" stop-color="#e8e1ff"/></linearGradient></defs>
+<rect x=".5" y=".5" width="859" height="249" rx="12" fill="#0d1117" stroke="#30363d"/>
+<text class="t" x="28" y="36" font-size="12" letter-spacing="2" style="fill:#A685E2">THIS WEEK IN CODE</text>
+<text class="t" x="28" y="78" font-size="20" font-weight="bold" style="fill:#e8e1ff">0 mins</text>
+<text class="t m" x="28" y="96" font-size="11">coded in the last 7 days</text>
+<text class="t" x="28" y="134" font-size="20" font-weight="bold" style="fill:#e8e1ff">0 mins</text>
+<text class="t m" x="28" y="152" font-size="11">daily average</text>
+<text class="t" x="330" y="36" font-size="12" letter-spacing="2" style="fill:#A685E2">LANGUAGES</text>
+<text class="t m" x="330" y="80" font-size="13">No coding activity tracked this week yet.</text>
+<text class="t m" x="28" y="232" font-size="11">tracked with WakaTime</text>
+</svg>
