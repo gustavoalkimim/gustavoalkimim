@@ -417,16 +417,55 @@ def render_svg(state, st):
 
 # ------------------------------------------------------------------ README
 
+HOW_TO_PLAY = [
+    "<details>",
+    "<summary><b>❓ How to play (step by step)</b></summary>",
+    "",
+    "1. **Pick a move** in the table below and click it. `e2→e4` moves the piece on **e2** to **e4**.",
+    "2. GitHub opens a **New issue** page with everything already filled in. Don't change anything — "
+    "just click **Create**. (You need to be logged in to GitHub.)",
+    "3. **Wait about a minute.** A GitHub Action checks your move, my engine thinks for ~3 seconds and plays Black.",
+    "4. The bot **replies on your issue** with the engine's move and closes it. Refresh this page to see "
+    "the new position — the board image can take a few minutes to update because GitHub caches it.",
+    "",
+    "Everyone plays the same game together. If two people move at the same time, the first issue wins and "
+    "the second one is told the position changed. Hover a move to see it in chess notation.",
+    "",
+    "</details>",
+]
+
+
+def move_label(m):
+    """Lance legível pra quem não conhece notação: origem → destino."""
+    san, uci = m["san"], m["uci"]
+    if san.startswith("O-O-O"):
+        label = "castle long"
+    elif san.startswith("O-O"):
+        label = "castle short"
+    else:
+        label = f"{uci[:2]}{'×' if 'x' in san else '→'}{uci[2:4]}"
+        if len(uci) == 5:
+            label += "=" + uci[4].upper()
+    if san.endswith(("+", "#")):
+        label += san[-1]
+    return label
+
+
 def render_readme(state, st):
     game = state["game"]
     lines = []
 
     if st["status"] == "ongoing":
-        lines.append("**It's your move — you play White.** Click a move: it opens a pre-filled issue, just hit "
-                     "**Create**. A GitHub Action validates it, my engine replies and the board updates in about a minute.")
-        lines.append("")
+        lines += [
+            "**It's your move — you play White.** Pick a move below: each one reads **from → to** "
+            "(`e2→e4` moves the piece on e2 to e4, `×` is a capture). Columns are **a–h** left to right, "
+            "rows **1–8** from the bottom.",
+            "",
+            *HOW_TO_PLAY,
+            "",
+        ]
         groups = {}
-        for m in sorted(st["legal"], key=lambda m: m["san"]):
+        for m in sorted(st["legal"], key=lambda m: m["uci"]):
             san = m["san"]
             kind = "K" if san.startswith("O-O") else (san[0] if san[0] in "KQRBN" else "P")
             groups.setdefault(kind, []).append(m)
@@ -435,7 +474,9 @@ def render_readme(state, st):
         for kind in "KQRBNP":
             if kind not in groups:
                 continue
-            links = " ".join(f"[`{m['san']}`]({issue_url('chess|move|' + m['uci'])})" for m in groups[kind])
+            # o título do link mostra a notação de xadrez (SAN) ao passar o mouse
+            links = " ".join(f"[`{move_label(m)}`]({issue_url('chess|move|' + m['uci'])} \"{m['san']}\")"
+                             for m in groups[kind])
             lines.append(f"| {WHITE_GLYPHS[kind]} {PIECE_NAMES[kind]} | {links} |")
     else:
         lines.append(f"**Game #{game['number']} is over — {STATUS_TEXT[st['status']]} "
