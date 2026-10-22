@@ -118,6 +118,25 @@ student:
 
 <br/>
 
+## 🧠 Tetris AI, Learning in Public
+> A neural network written from scratch in C and evolved by a genetic algorithm — no human games, no hand-tuned weights. It started from random weights and trains 2 more generations every Monday.
+
+<div align="center">
+<img src="./tetris/replay.gif" />
+<br/>
+<img src="./tetris/brain.svg" />
+</div>
+
+<!--START_SECTION:tetris-->
+| Generation | Training for | Best fitness | Record | Champion (showcase game) |
+| :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 weeks | 18,445 | 18,445 (gen 0) | 90 lines · 0 tetrises |
+
+<sub>8 board features → 8 hidden neurons → 1 move score. 100 networks per generation, each plays 3 games of up to 1,000 pieces; the best 5 survive and the rest are bred by tournament selection, crossover and mutation — [source](./tetris/engine) · [how it works](./tetris/README.md)</sub>
+<!--END_SECTION:tetris-->
+
+<br/>
+
 ## 🚀 Projetos Principais
 
 - **[PetVet](https://github.com/gustavoalkimim/petvet)** — MVP de uma startup B2B2C (clínica veterinária → tutor de pet). Backend Java/Spring Boot com JWT e camada de segurança, frontend React + TypeScript. Projeto real, ainda incompleto, com bugs conhecidos documentados no próprio README.

@@ -1,0 +1,38 @@
+name: Tetris — testar engine
+
+on:
+  push:
+    paths:
+      - "tetris/engine/**"
+  pull_request:
+    paths:
+      - "tetris/engine/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compilar com warnings como erro
+        run: make -C tetris/engine CFLAGS="-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror"
+
+      - name: Treino roda e salva a população
+        run: |
+          tetris/engine/tetris train "$RUNNER_TEMP/pop.txt" 1 20 | tee "$RUNNER_TEMP/stats.json"
+          jq -e '.generation == 0 and .best > 0' "$RUNNER_TEMP/stats.json"
+          grep -q "^generation 1$" "$RUNNER_TEMP/pop.txt"
+
+      - name: Replay é determinístico
+        run: |
+          a=$(tetris/engine/tetris replay "$RUNNER_TEMP/pop.txt" 0 42 300 | sha256sum)
+          b=$(tetris/engine/tetris replay "$RUNNER_TEMP/pop.txt" 0 42 300 | sha256sum)
+          echo "$a"; echo "$b"
+          [ "$a" = "$b" ]
+
+      - name: Toda jogada exportada é válida (4 casas dentro do tabuleiro)
+        run: |
+          tetris/engine/tetris replay "$RUNNER_TEMP/pop.txt" 0 7 500 \
+            | jq -e '.moves | all(.cells | length == 4 and all(.[0] >= 0 and .[0] < 10 and .[1] >= 0 and .[1] < 20))'
