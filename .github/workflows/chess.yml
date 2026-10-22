@@ -1,0 +1,68 @@
+name: Chess — processar jogada
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:       # botão manual: reprocessa issues pendentes e redesenha o tabuleiro
+
+# uma jogada por vez; se uma execução pendente for cancelada pelo GitHub,
+# a próxima pega a issue dela porque sempre varre todas as issues abertas
+concurrency:
+  group: chess
+  cancel-in-progress: false
+
+jobs:
+  play:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, 'chess|')
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compilar engine
+        run: make -C chess/engine
+
+      - name: Buscar issues de xadrez abertas
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title,author \
+            | jq '[.[] | select(.title | startswith("chess|"))]' > "$RUNNER_TEMP/issues.json"
+          jq -r '.[] | "#\(.number) \(.title)"' "$RUNNER_TEMP/issues.json"
+
+      - name: Jogar
+        run: python3 chess/play.py process "$RUNNER_TEMP/issues.json" "$RUNNER_TEMP/replies.json"
+
+      - name: Commit e push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md chess/board.svg chess/data/state.json
+          if git diff --staged --quiet; then
+            echo "Nenhuma mudança — commit ignorado."
+            exit 0
+          fi
+          git commit -m "chore: jogada de xadrez [skip ci]"
+          # outros workflows do perfil também fazem push; tenta rebase algumas vezes
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
+
+      # só responde depois do push, pra resposta nunca mentir sobre o tabuleiro
+      - name: Responder e fechar issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          jq -c '.[]' "$RUNNER_TEMP/replies.json" | while read -r reply; do
+            number=$(jq -r '.number' <<< "$reply")
+            jq -r '.body' <<< "$reply" > "$RUNNER_TEMP/body.md"
+            gh issue comment "$number" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/body.md"
+            gh issue close "$number" --repo "$GITHUB_REPOSITORY"
+          done
