@@ -11,6 +11,28 @@
    "tetrises": 0.0,
    "pieces": 444.7,
    "at": "2026-10-22T12:51:37Z"
+  },
+  {
+   "generation": 1,
+   "best": 35264.7,
+   "mean": 1780.1,
+   "median": 99.0,
+   "score": 34466.7,
+   "lines": 309.3,
+   "tetrises": 0.33,
+   "pieces": 798.0,
+   "at": "2026-10-22T12:55:48Z"
+  },
+  {
+   "generation": 2,
+   "best": 31625.7,
+   "mean": 3130.4,
+   "median": 995.0,
+   "score": 30866.7,
+   "lines": 289.7,
+   "tetrises": 0.0,
+   "pieces": 759.0,
+   "at": "2026-10-22T12:55:48Z"
   }
  ]
 }
