@@ -1,0 +1,29 @@
+name: Chess — testar engine
+
+on:
+  push:
+    paths:
+      - "chess/engine/**"
+  pull_request:
+    paths:
+      - "chess/engine/**"
+  workflow_dispatch:
+
+jobs:
+  perft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compilar com warnings como erro
+        run: make -C chess/engine CFLAGS="-O2 -std=c11 -Wall -Wextra -Wpedantic -Werror"
+
+      - name: Perft (6 posições de referência)
+        run: make -C chess/engine test
+
+      - name: A engine encontra mate em 1
+        run: |
+          out=$(chess/engine/chess think 1000 f2f3 e7e5 g2g4)
+          echo "$out"
+          jq -e '.san == "Qh4#" and .mate_in == 1' <<< "$out"

@@ -1,0 +1,17 @@
+{
+  "game": {
+    "number": 1,
+    "moves": [],
+    "players": [],
+    "log": [],
+    "engine": null,
+    "started_at": "2026-10-22T12:26:48Z"
+  },
+  "record": {
+    "engine_wins": 0,
+    "draws": 0,
+    "engine_losses": 0
+  },
+  "leaderboard": {},
+  "history": []
+}
