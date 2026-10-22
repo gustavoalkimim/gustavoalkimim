@@ -34,7 +34,8 @@ void pop_evolve(Population *p);              /* elitismo + torneio + crossover +
 
 uint64_t eval_seed(int generation, int world);
 
-/* todos os pássaros voam um mundo; grava cada tick em JSON pro GIF */
-void swarm_replay(const Population *p, uint64_t seed, long max_ticks, FILE *out);
+/* o enxame inteiro voa um mundo até o fim; os quadros com tick < frame_ticks
+   (a cada `every` ticks) vão pro JSON do GIF, o resto só conta pro placar */
+void swarm_replay(const Population *p, uint64_t seed, long frame_ticks, int every, FILE *out);
 
 #endif

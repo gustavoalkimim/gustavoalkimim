@@ -105,6 +105,28 @@ student:
 
 <br/>
 
+## 🐦 Flappy Bird Swarm, Evolving in Public
+
+[![engine tests](https://img.shields.io/github/actions/workflow/status/gustavoalkimim/gustavoalkimim/flappy-engine-ci.yml?branch=main&label=engine%20tests&style=flat-square&labelColor=302b63)](https://github.com/gustavoalkimim/gustavoalkimim/actions/workflows/flappy-engine-ci.yml) [![weekly training](https://img.shields.io/github/actions/workflow/status/gustavoalkimim/gustavoalkimim/flappy.yml?branch=main&label=weekly%20training&style=flat-square&labelColor=302b63)](https://github.com/gustavoalkimim/gustavoalkimim/actions/workflows/flappy.yml)
+
+> 100 birds, one neural network each, all flying the same pipes at once — written from scratch in C and evolved by a genetic algorithm. The pipes get harder the farther they go, and the swarm trains 2 more generations every Monday. The gold bird is the reigning champion.
+
+<div align="center">
+<img src="./flappy/swarm.gif" />
+<br/>
+<img src="./flappy/evolution.svg" />
+</div>
+
+<!--START_SECTION:flappy-->
+| Generation | Training for | Best bird | Swarm average | Record | Hardest phase reached |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **0** | 0 weeks | 45 pipes | 0.5 pipes | 45 (gen 0) | static pipes |
+
+<sub>Each bird sees 6 numbers (height, velocity, next gap) → 6 hidden neurons → flap or not, 60 times a second. All 100 birds fly the same 3 worlds per generation; the gap narrows, the speed rises, pipes start moving at pipe 50 and spacing varies from pipe 150 — [source](./flappy/engine) · [how it works](./flappy/README.md)</sub>
+<!--END_SECTION:flappy-->
+
+<br/>
+
 ## 🧬 Conway's Game of Life
 > Seeded from my real contribution history · regenerated every Monday via GitHub Actions.
 

@@ -1,0 +1,55 @@
+name: Flappy AI — treinar gerações
+
+on:
+  schedule:
+    - cron: "0 10 * * 1"   # toda segunda-feira às 10:00 UTC (depois do Tetris)
+  workflow_dispatch:
+    inputs:
+      generations:
+        description: "Quantas gerações treinar"
+        default: "2"
+
+concurrency:
+  group: flappy
+  cancel-in-progress: false
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install pillow
+
+      - name: Compilar engine
+        run: make -C flappy/engine
+
+      - name: Treinar e renderizar
+        run: python flappy/render.py train "${{ github.event.inputs.generations || '2' }}"
+
+      - name: Commit e push
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md flappy/swarm.gif flappy/evolution.svg flappy/data
+          if git diff --staged --quiet; then
+            echo "Nenhuma mudança — commit ignorado."
+            exit 0
+          fi
+          git commit -m "chore: treinar IA de flappy bird [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1
