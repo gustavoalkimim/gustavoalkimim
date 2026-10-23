@@ -197,7 +197,6 @@ Everyone plays the same game together. If two people move at the same time, the 
 2. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
 3. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
 4. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
-5. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 22/09
 <!--END_SECTION:activity-->
 
 </details>
