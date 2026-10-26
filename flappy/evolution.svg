@@ -6,21 +6,25 @@
 <line x1="60" y1="276.0" x2="420" y2="276.0" stroke="#21262d"/>
 <text class="t m" x="52" y="280.0" font-size="10" text-anchor="end">0</text>
 <line x1="60" y1="166.0" x2="420" y2="166.0" stroke="#21262d"/>
-<text class="t m" x="52" y="170.0" font-size="10" text-anchor="end">34</text>
+<text class="t m" x="52" y="170.0" font-size="10" text-anchor="end">94</text>
 <line x1="60" y1="56.0" x2="420" y2="56.0" stroke="#21262d"/>
-<text class="t m" x="52" y="60.0" font-size="10" text-anchor="end">69</text>
-<line x1="60" y1="116.6" x2="420" y2="116.6" stroke="#f6c177" stroke-opacity=".5" stroke-dasharray="4 4"/>
-<text class="t" x="416" y="111.6" font-size="10" text-anchor="end" style="fill:#f6c177" fill-opacity=".8">pipes start moving</text>
+<text class="t m" x="52" y="60.0" font-size="10" text-anchor="end">189</text>
+<line x1="60" y1="217.8" x2="420" y2="217.8" stroke="#f6c177" stroke-opacity=".5" stroke-dasharray="4 4"/>
+<text class="t" x="416" y="212.8" font-size="10" text-anchor="end" style="fill:#f6c177" fill-opacity=".8">pipes start moving</text>
+<line x1="60" y1="101.3" x2="420" y2="101.3" stroke="#f6c177" stroke-opacity=".5" stroke-dasharray="4 4"/>
+<text class="t" x="416" y="96.3" font-size="10" text-anchor="end" style="fill:#f6c177" fill-opacity=".8">spacing varies</text>
 <text class="t m" x="60" y="294" font-size="10">gen 0</text>
-<text class="t m" x="420" y="294" font-size="10" text-anchor="end">gen 0</text>
-<circle cx="240.0" cy="131.6" r="4" fill="#A685E2"/>
-<text class="t m" x="240.0" y="119.6" font-size="11" text-anchor="middle">just hatched — come back next Monday</text>
+<text class="t m" x="420" y="294" font-size="10" text-anchor="end">gen 2</text>
+<path class="fade" d="M60,276 L60.0,223.3 L240.0,218.9 L420.0,84.7 L420,276 Z" fill="url(#area)"/>
+<polyline class="draw" pathLength="1" points="60.0,275.4 240.0,275.3 420.0,272.6" fill="none" stroke="#8b949e" stroke-width="1.5"/>
+<polyline class="draw" pathLength="1" points="60.0,223.3 240.0,218.9 420.0,84.7" fill="none" stroke="#A685E2" stroke-width="2.5" stroke-linejoin="round"/>
+<circle class="fade" cx="420.0" cy="84.7" r="4" fill="#A685E2"/>
 <text class="t" x="60" y="314" font-size="11"><tspan style="fill:#A685E2">━ best bird</tspan><tspan class="m">   ━ swarm average</tspan></text>
 <text class="t" x="460" y="32" font-size="12" letter-spacing="2" style="fill:#A685E2">CHAMPION'S BRAIN · 49 WEIGHTS</text>
 <line x1="590" y1="76.0" x2="712" y2="76.0" stroke="#A685E2" stroke-width="0.82" stroke-opacity="0.28"/>
 <line x1="590" y1="112.0" x2="712" y2="76.0" stroke="#A685E2" stroke-width="0.65" stroke-opacity="0.24"/>
 <line x1="590" y1="148.0" x2="712" y2="76.0" stroke="#f6c177" stroke-width="0.93" stroke-opacity="0.31"/>
-<line x1="590" y1="184.0" x2="712" y2="76.0" stroke="#A685E2" stroke-width="0.72" stroke-opacity="0.26"/>
+<line x1="590" y1="184.0" x2="712" y2="76.0" stroke="#A685E2" stroke-width="0.48" stroke-opacity="0.20"/>
 <line x1="590" y1="220.0" x2="712" y2="76.0" stroke="#f6c177" stroke-width="0.77" stroke-opacity="0.27"/>
 <line x1="590" y1="256.0" x2="712" y2="76.0" stroke="#f6c177" stroke-width="0.84" stroke-opacity="0.29"/>
 <line x1="712" y1="76.0" x2="818" y2="166.0" stroke="#A685E2" stroke-width="2.13" stroke-opacity="0.63"/>
@@ -32,9 +36,9 @@
 <line x1="590" y1="256.0" x2="712" y2="112.0" stroke="#A685E2" stroke-width="1.07" stroke-opacity="0.35"/>
 <line x1="712" y1="112.0" x2="818" y2="166.0" stroke="#A685E2" stroke-width="2.09" stroke-opacity="0.61"/>
 <line x1="590" y1="76.0" x2="712" y2="148.0" stroke="#A685E2" stroke-width="0.63" stroke-opacity="0.23"/>
-<line x1="590" y1="112.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="0.56" stroke-opacity="0.22"/>
+<line x1="590" y1="112.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="0.36" stroke-opacity="0.17"/>
 <line x1="590" y1="148.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="0.77" stroke-opacity="0.27"/>
-<line x1="590" y1="184.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="1.33" stroke-opacity="0.42"/>
+<line x1="590" y1="184.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="1.38" stroke-opacity="0.43"/>
 <line x1="590" y1="220.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="1.11" stroke-opacity="0.36"/>
 <line x1="590" y1="256.0" x2="712" y2="148.0" stroke="#f6c177" stroke-width="1.38" stroke-opacity="0.43"/>
 <line x1="712" y1="148.0" x2="818" y2="166.0" stroke="#A685E2" stroke-width="0.77" stroke-opacity="0.27"/>
@@ -71,10 +75,10 @@
 <text class="t m" x="576" y="224" font-size="11" text-anchor="end">gap bottom</text>
 <circle cx="590" cy="256" r="6" fill="#161b22" stroke="#8b949e"/>
 <text class="t m" x="576" y="260" font-size="11" text-anchor="end">gap speed</text>
-<circle class="n" style="animation-delay:0.0s" cx="712" cy="76" r="7" fill="#A685E2" fill-opacity="0.76" stroke="#A685E2"/>
+<circle class="n" style="animation-delay:0.0s" cx="712" cy="76" r="7" fill="#A685E2" fill-opacity="0.70" stroke="#A685E2"/>
 <circle class="n" style="animation-delay:0.3s" cx="712" cy="112" r="7" fill="#A685E2" fill-opacity="0.37" stroke="#A685E2"/>
 <circle class="n" style="animation-delay:0.6s" cx="712" cy="148" r="7" fill="#f6c177" fill-opacity="0.43" stroke="#A685E2"/>
-<circle class="n" style="animation-delay:0.9s" cx="712" cy="184" r="7" fill="#f6c177" fill-opacity="0.64" stroke="#A685E2"/>
+<circle class="n" style="animation-delay:0.9s" cx="712" cy="184" r="7" fill="#f6c177" fill-opacity="0.74" stroke="#A685E2"/>
 <circle class="n" style="animation-delay:1.2s" cx="712" cy="220" r="7" fill="#A685E2" fill-opacity="0.83" stroke="#A685E2"/>
 <circle class="n" style="animation-delay:1.5s" cx="712" cy="256" r="7" fill="#f6c177" fill-opacity="0.43" stroke="#A685E2"/>
 <circle cx="818" cy="166.0" r="10" fill="#A685E2"/>
