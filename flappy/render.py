@@ -27,8 +27,9 @@ SVG_PATH = ROOT / "evolution.svg"
 README_PATH = ROOT.parent / "README.md"
 ENGINE = Path(os.environ.get("FLAPPY_ENGINE") or ROOT / "engine" / ("flappy.exe" if os.name == "nt" else "flappy"))
 
-FRAME_TICKS = 1600       # o GIF mostra o começo do voo; o placar é do voo inteiro
-TICKS_PER_FRAME = 4
+FRAME_TICKS = 1440       # o GIF mostra o começo do voo; o placar é do voo inteiro
+TICKS_PER_FRAME = 6       # menos quadros = GIF mais leve (o cenário inteiro muda a cada quadro)
+FRAME_MS = 70
 FALL_FRAMES = 8          # quadros da animação de queda de quem morre
 INPUTS = ["height", "velocity", "pipe dist.", "gap top", "gap bottom", "gap speed"]
 HIDDEN = 6
@@ -39,7 +40,6 @@ PIPE_W = 52
 
 # Paleta roxa — mesma do resto do perfil
 COLOR_BG = "#0d1117"
-COLOR_SKY = "#11151f"
 COLOR_PANEL = "#161b22"
 COLOR_GRID = "#21262d"
 COLOR_BORDER = "#30363d"
@@ -48,10 +48,6 @@ COLOR_MUTED = "#8b949e"
 COLOR_ACCENT = "#A685E2"
 COLOR_GOLD = "#f6c177"
 COLOR_LIGHT = "#e8e1ff"
-COLOR_PIPE = "#302b63"
-COLOR_PIPE_LIP = "#6f5cc2"
-COLOR_BIRD = "#b9a6f0"
-COLOR_DEAD = "#5b6270"
 
 
 # ------------------------------------------------------------------ engine
@@ -91,6 +87,28 @@ def train(generations):
 
 # ------------------------------------------------------------------ GIF
 
+# O jogo é desenhado em meia resolução (240x180 + chão) e ampliado 2x sem
+# suavização: cada "pixel" vira um bloco 2x2, como em pixel art.
+SCALE = 2
+LOW_W, LOW_H = WORLD_W // SCALE, WORLD_H // SCALE
+GROUND_H = 16                          # faixa de chão abaixo do mundo (em px baixos)
+BIRD_LOW_X = 90 // SCALE
+
+# Céu e cenário: azul de dia, mas o chão e os pássaros puxam pro roxo do perfil
+SKY_BANDS = ["#3d8fe0", "#4a9be6", "#57a7eb", "#65b3ef", "#74bff3", "#84caf6", "#95d4f8", "#a7ddfa"]
+CLOUD = ["#ffffff", "#e3f3fd", "#b8def6"]                       # luz, sombra, contorno
+HILLS = ["#8fd9c9", "#6cc4b4"]
+PIPE = {"outline": "#1d3510", "body": "#6cbf2e", "light": "#b4ec6c", "dark": "#468a1c"}
+GROUND = {"top": "#6f5cc2", "stripe": "#A685E2", "dirt": "#302b63", "dot": "#24204d"}
+BIRD = {
+    "outline": "#2a1f4a", "eye": "#ffffff", "pupil": "#1b1530", "beak": "#ff9f1c",
+    "body": "#f4f0ff", "wing": "#b9a6f0",            # enxame: branco-lilás
+    "gold": "#ffc93c", "gold_wing": "#ff9f1c",       # campeão
+    "crown": "#fff36b",
+    "dead": "#9aa3b2", "dead_wing": "#6b7280",
+}
+
+
 def hex_rgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
 
@@ -102,55 +120,137 @@ def font(size):
         return ImageFont.load_default()
 
 
+def outlined(sprite, color):
+    """Contorno de 1 px em volta do que não é transparente (cara de pixel art)."""
+    from PIL import ImageFilter
+    alpha = sprite.getchannel("A").point(lambda a: 255 if a else 0)
+    grown = alpha.filter(ImageFilter.MaxFilter(3))
+    edge = Image.new("RGBA", sprite.size, color)
+    edge.putalpha(Image.eval(grown, lambda a: a).point(lambda a: a))
+    out = Image.new("RGBA", sprite.size, (0, 0, 0, 0))
+    out.alpha_composite(edge)
+    out.alpha_composite(sprite)
+    return out
+
+
+def bird_sprite(body, wing, wing_up, crown=False, dead=False):
+    """Pássaro gordinho olhando pra direita, 16x14 px baixos."""
+    img = Image.new("RGBA", (16, 14), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    top = 3
+    d.ellipse([2, top, 12, top + 9], fill=body)
+    if wing_up:
+        d.ellipse([1, top + 1, 7, top + 5], fill=wing)
+    else:
+        d.ellipse([1, top + 4, 7, top + 8], fill=wing)
+    d.rectangle([11, top + 4, 14, top + 6], fill=BIRD["beak"] if not dead else BIRD["dead_wing"])
+    d.rectangle([8, top + 1, 10, top + 3], fill=BIRD["eye"])
+    if dead:   # olho de "x"
+        d.point([(8, top + 1), (10, top + 3), (10, top + 1), (8, top + 3)], fill=BIRD["pupil"])
+    else:
+        d.rectangle([10, top + 2, 10, top + 3], fill=BIRD["pupil"])
+    if crown:
+        d.rectangle([5, top - 1, 9, top], fill=BIRD["crown"])
+        d.point([(5, top - 2), (7, top - 2), (9, top - 2)], fill=BIRD["crown"])
+    sprite = outlined(img, BIRD["outline"])
+    return sprite.transpose(Image.Transpose.FLIP_TOP_BOTTOM) if dead else sprite
+
+
+def cloud_sprite(w, h, seed):
+    """Nuvem feita de bolhas sobrepostas, com sombra embaixo."""
+    import random
+    rnd = random.Random(seed)
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    for _ in range(6):
+        r = rnd.randint(h // 3, h // 2)
+        cx = rnd.randint(r, w - r)
+        d.ellipse([cx - r, h - 2 * r - 1, cx + r, h - 1], fill=CLOUD[1])
+    for _ in range(6):
+        r = rnd.randint(h // 3, h // 2 - 1)
+        cx = rnd.randint(r, w - r)
+        d.ellipse([cx - r, h - 2 * r - 3, cx + r, h - 3], fill=CLOUD[0])
+    return outlined(img, CLOUD[2])
+
+
 def make_gif(generation, replay, record):
-    W, H = 700, 400
-    vx, vy = 20, 20                      # canto da "tela" do jogo
-    px = vx + WORLD_W + 24               # painel da direita
+    W, H = 700, 440
+    vx, vy = 20, 20                                  # canto da tela do jogo (px reais)
+    px = vx + WORLD_W + 24                           # painel da direita
     title_font, big_font, label_font, tiny_font = font(15), font(28), font(12), font(11)
+    score_font = font(40)
     frames, durations = [], []
+
+    sprites = {
+        ("swarm", up): bird_sprite(BIRD["body"], BIRD["wing"], up) for up in (False, True)
+    }
+    sprites.update({("champ", up): bird_sprite(BIRD["gold"], BIRD["gold_wing"], up, crown=True)
+                    for up in (False, True)})
+    dead_sprite = bird_sprite(BIRD["dead"], BIRD["dead_wing"], False, dead=True)
+    clouds = [(cloud_sprite(44, 16, s), s * 97 % 260, 8 + s * 13 % 50) for s in range(1, 6)]
 
     total = replay["birds"]
     alive_hist = []
-    falling = {}                          # pássaro -> [y, vy, quadros restantes]
-    prev = {}
+    falling = {}                                     # pássaro -> [y, vy, quadros restantes]
+    prev, prev_y = {}, {}
     champion_fell = None
 
-    def draw_world(d, frame):
-        d.rectangle([vx, vy, vx + WORLD_W, vy + WORLD_H], fill=COLOR_SKY)
-        for x, top, bottom in frame["p"]:
-            x0, x1 = vx + x, vx + x + PIPE_W
-            if x1 < vx or x0 > vx + WORLD_W:
-                continue
-            x0c, x1c = max(x0, vx), min(x1, vx + WORLD_W)
-            d.rectangle([x0c, vy, x1c, vy + top], fill=COLOR_PIPE)
-            d.rectangle([x0c, vy + bottom, x1c, vy + WORLD_H], fill=COLOR_PIPE)
-            # "boca" do cano
-            lx0, lx1 = max(x0 - 3, vx), min(x1 + 3, vx + WORLD_W)
-            d.rectangle([lx0, vy + top - 8, lx1, vy + top], fill=COLOR_PIPE_LIP)
-            d.rectangle([lx0, vy + bottom, lx1, vy + bottom + 8], fill=COLOR_PIPE_LIP)
-        d.rectangle([vx, vy, vx + WORLD_W, vy + WORLD_H], outline=COLOR_BORDER)
+    def scenery(low, tick):
+        d = ImageDraw.Draw(low)
+        band = LOW_H / len(SKY_BANDS)
+        for i, c in enumerate(SKY_BANDS):
+            d.rectangle([0, int(i * band), LOW_W, int((i + 1) * band)], fill=c)
+        for sprite, x0, y0 in clouds:                # nuvens: parallax lento
+            x = (x0 - tick * 0.25) % (LOW_W + 60) - 50
+            low.alpha_composite(sprite, (int(x), int(y0)))
+        for k in range(-1, LOW_W // 40 + 2):          # morrinhos parados: mexer tudo pesa no GIF
+            cx = k * 40 + 20
+            d.ellipse([cx - 22, LOW_H - 14, cx + 22, LOW_H + 20], fill=HILLS[k % 2])
 
-    def bird(d, y, color, r, outline=None):
-        cx, cy = vx + 90, vy + y
-        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color, outline=outline)
-        d.ellipse([cx + r * .2, cy - r * .55, cx + r * .7, cy - r * .05], fill=COLOR_BG)   # olho
+    def pipes(low, frame):
+        d = ImageDraw.Draw(low)
+        for x, top, bottom in frame["p"]:
+            x0 = int(x / SCALE)
+            w = PIPE_W // SCALE
+            t, b = int(top / SCALE), int(bottom / SCALE)
+            for y0, y1, lip_y in ((0, t, t - 6), (b, LOW_H, b)):
+                d.rectangle([x0, y0, x0 + w - 1, y1], fill=PIPE["outline"])
+                d.rectangle([x0 + 1, y0, x0 + w - 2, y1], fill=PIPE["body"])
+                d.rectangle([x0 + 3, y0, x0 + 5, y1], fill=PIPE["light"])
+                d.rectangle([x0 + w - 5, y0, x0 + w - 3, y1], fill=PIPE["dark"])
+                # boca do cano, um pouco mais larga
+                d.rectangle([x0 - 2, lip_y, x0 + w + 1, lip_y + 6], fill=PIPE["outline"])
+                d.rectangle([x0 - 1, lip_y + 1, x0 + w, lip_y + 5], fill=PIPE["body"])
+                d.rectangle([x0 + 1, lip_y + 1, x0 + 3, lip_y + 5], fill=PIPE["light"])
+                d.rectangle([x0 + w - 4, lip_y + 1, x0 + w - 2, lip_y + 5], fill=PIPE["dark"])
+
+    def ground(low, tick):
+        d = ImageDraw.Draw(low)
+        y = LOW_H
+        d.rectangle([0, y, LOW_W, y + GROUND_H], fill=GROUND["dirt"])
+        d.rectangle([0, y, LOW_W, y + 3], fill=GROUND["top"])
+        off = -(tick * 1.5) % 8                      # listras andam com o mundo
+        for k in range(-1, LOW_W // 8 + 2):
+            sx = int(k * 8 + off)
+            d.polygon([(sx, y + 3), (sx + 4, y + 3), (sx + 2, y + 6), (sx - 2, y + 6)], fill=GROUND["stripe"])
+        for k in range(0, LOW_W, 11):
+            d.point(((k + int(off) * 3) % LOW_W, y + 10 + k % 4), fill=GROUND["dot"])
+
+    def put_bird(low, sprite, y):
+        low.alpha_composite(sprite, (BIRD_LOW_X - 8, int(y / SCALE) - 8))
 
     def panel(d, frame, alive, champion_alive):
         d.text((px, 20), f"GEN {generation}", font=title_font, fill=COLOR_ACCENT)
         d.text((px, 50), f"{alive}", font=big_font, fill=COLOR_LIGHT)
         d.text((px + d.textlength(f"{alive}", font=big_font) + 4, 62), f"/ {total}", font=label_font, fill=COLOR_MUTED)
         d.text((px, 84), "alive", font=label_font, fill=COLOR_MUTED)
-        d.text((px, 112), str(frame["n"]), font=big_font, fill=COLOR_LIGHT)
-        d.text((px, 146), "pipes", font=label_font, fill=COLOR_MUTED)
-
         status = "flying" if champion_alive else f"fell at pipe {champion_fell}"
-        d.ellipse([px, 178, px + 10, 188], fill=COLOR_GOLD)
-        d.text((px + 16, 175), "champion", font=label_font, fill=COLOR_TEXT)
-        d.text((px + 16, 191), status, font=tiny_font, fill=COLOR_GOLD if champion_alive else COLOR_MUTED)
-        d.text((px, 222), f"record: {record} pipes", font=tiny_font, fill=COLOR_MUTED)
+        d.ellipse([px, 124, px + 10, 134], fill=BIRD["gold"])
+        d.text((px + 16, 121), "champion", font=label_font, fill=COLOR_TEXT)
+        d.text((px + 16, 137), status, font=tiny_font, fill=BIRD["gold"] if champion_alive else COLOR_MUTED)
+        d.text((px, 168), f"record: {record} pipes", font=tiny_font, fill=COLOR_MUTED)
 
-        # sparkline: quantos seguem vivos ao longo do voo
-        sx, sy, sw, sh = px, 260, 150, 70
+        sx, sy, sw, sh = px, 210, 150, 70               # quantos seguem vivos
         d.rectangle([sx, sy, sx + sw, sy + sh], outline=COLOR_GRID)
         if len(alive_hist) > 1:
             n = max(len(alive_hist) - 1, 1)
@@ -159,33 +259,45 @@ def make_gif(generation, replay, record):
         d.text((sx, sy + sh + 6), "survivors over time", font=tiny_font, fill=COLOR_MUTED)
 
     def render_frame(frame, duration, overlay=None):
-        img = Image.new("RGB", (W, H), COLOR_BG)
-        d = ImageDraw.Draw(img)
-        draw_world(d, frame)
+        low = Image.new("RGBA", (LOW_W, LOW_H + GROUND_H))
+        scenery(low, frame["t"])
+        pipes(low, frame)
+        ground(low, frame["t"])
 
         for b, (y, v, left) in list(falling.items()):
-            bird(d, y, COLOR_DEAD, 6)
+            put_bird(low, dead_sprite, y)
             v += 2.4
-            y = min(y + v, WORLD_H - 6)
+            y = min(y + v, WORLD_H + 10)
             falling[b] = [y, v, left - 1]
             if left <= 1:
                 del falling[b]
 
         alive = {i: y for i, y in frame["b"]}
         for i, y in alive.items():
-            if i != 0:
-                bird(d, y, COLOR_BIRD, 6)
+            if i != 0:   # asa pra cima quando está subindo
+                put_bird(low, sprites[("swarm", y < prev_y.get(i, y))], y)
         if 0 in alive:
-            bird(d, alive[0], COLOR_GOLD, 9, outline=COLOR_BG)
+            put_bird(low, sprites[("champ", alive[0] < prev_y.get(0, alive[0]))], alive[0])
+
+        img = Image.new("RGB", (W, H), COLOR_BG)
+        img.paste(low.convert("RGB").resize((LOW_W * SCALE, (LOW_H + GROUND_H) * SCALE), Image.Resampling.NEAREST),
+                  (vx, vy))
+        d = ImageDraw.Draw(img)
+        score = str(frame["n"])
+        tw = d.textlength(score, font=score_font)
+        d.text((vx + (WORLD_W - tw) / 2, vy + 14), score, font=score_font, fill="#ffffff",
+               stroke_width=3, stroke_fill=BIRD["outline"])
 
         panel(d, frame, len(alive), 0 in alive)
         d.text((vx, H - 18), "100 neural nets from scratch in C · evolved by a genetic algorithm",
                font=tiny_font, fill=COLOR_MUTED)
         if overlay:
-            d.rectangle([vx + 50, 140, vx + WORLD_W - 50, 240], fill=COLOR_PANEL, outline=COLOR_ACCENT, width=2)
+            box = [vx + 60, 150, vx + WORLD_W - 60, 256]
+            d.rectangle([box[0] + 4, box[1] + 4, box[2] + 4, box[3] + 4], fill=BIRD["outline"])  # sombra
+            d.rectangle(box, fill="#ffffff", outline=BIRD["outline"], width=3)
             for i, (text, f, color) in enumerate(overlay):
                 tw = d.textlength(text, font=f)
-                d.text((vx + (WORLD_W - tw) / 2, 156 + i * 28), text, font=f, fill=color)
+                d.text((vx + (WORLD_W - tw) / 2, 166 + i * 28), text, font=f, fill=color)
         frames.append(img)
         durations.append(duration)
 
@@ -193,43 +305,47 @@ def make_gif(generation, replay, record):
         alive = {i: y for i, y in frame["b"]}
         for i, y in prev.items():
             if i not in alive:
-                falling[i] = [y, 0.0, FALL_FRAMES]
+                falling[i] = [y, -4.0, FALL_FRAMES]
                 if i == 0:
                     champion_fell = frame["n"] + 1
-        prev = alive
         alive_hist.append(len(alive))
-        render_frame(frame, 50)
+        prev_y = prev
+        render_frame(frame, FRAME_MS)
+        prev = alive
 
     last = replay["frames"][-1]
-    while falling:                       # termina a queda dos últimos
-        render_frame({**last, "b": [[i, y] for i, y in prev.items()]}, 50)
+    still = {**last, "b": [[i, y] for i, y in prev.items()]}
+    while falling:                                   # termina a queda dos últimos
+        render_frame(still, FRAME_MS)
 
+    dark, accent = BIRD["outline"], "#6f5cc2"
     if replay["frames"][-1]["b"] and replay["ticks"] > FRAME_TICKS:
         overlay = [
-            ("...and they kept flying. Full run:", label_font, COLOR_MUTED),
-            (f"best bird: {replay['best_pipes']} pipes · champion: {replay['champion_pipes']}",
-             title_font, COLOR_LIGHT),
+            ("...and they kept flying. Full run:", label_font, accent),
+            (f"best bird: {replay['best_pipes']} pipes · champion: {replay['champion_pipes']}", title_font, dark),
             ("reached the 500-pipe cap!" if replay["finished"]
-             else f"the last one fell at pipe {replay['pipes'] + 1}", label_font, COLOR_ACCENT),
+             else f"the last one fell at pipe {replay['pipes'] + 1}", label_font, accent),
         ]
     else:
         overlay = [
-            ("Everyone fell.", label_font, COLOR_MUTED),
-            (f"best bird: {replay['best_pipes']} pipes", title_font, COLOR_LIGHT),
-            ("next generation trains on Monday", label_font, COLOR_ACCENT),
+            ("Everyone fell.", label_font, accent),
+            (f"best bird: {replay['best_pipes']} pipes", title_font, dark),
+            ("next generation trains on Monday", label_font, accent),
         ]
-    render_frame({**last, "b": [[i, y] for i, y in prev.items()]}, 3500, overlay)
+    render_frame(still, 3500, overlay)
 
+    # paleta fixa: todas as cores do cenário + rampas pro antialiasing do texto
+    colors = [COLOR_BG, COLOR_PANEL, COLOR_GRID, COLOR_BORDER, COLOR_TEXT, COLOR_MUTED, COLOR_ACCENT,
+              COLOR_LIGHT, "#ffffff", *SKY_BANDS, *CLOUD, *HILLS, *PIPE.values(), *GROUND.values(),
+              *BIRD.values(), accent]
+    flat = [c for h in dict.fromkeys(colors) for c in hex_rgb(h)]
+    ramps = [(COLOR_BG, t) for t in (COLOR_TEXT, COLOR_MUTED, COLOR_ACCENT, COLOR_LIGHT, BIRD["gold"])]
+    ramps += [("#ffffff", dark), ("#ffffff", accent), (dark, SKY_BANDS[0]), (dark, SKY_BANDS[2])]
+    for base, target in ramps:
+        a, b = hex_rgb(base), hex_rgb(target)
+        for t in (0.33, 0.66):
+            flat += [round(a[i] + (b[i] - a[i]) * t) for i in range(3)]
     palette = Image.new("P", (1, 1))
-    colors = [COLOR_BG, COLOR_SKY, COLOR_PANEL, COLOR_GRID, COLOR_BORDER, COLOR_TEXT, COLOR_MUTED, COLOR_ACCENT,
-              COLOR_GOLD, COLOR_LIGHT, COLOR_PIPE, COLOR_PIPE_LIP, COLOR_BIRD, COLOR_DEAD]
-    flat = [c for h in colors for c in hex_rgb(h)]
-    # rampas pra suavizar o antialiasing do texto e das bordas dos pássaros
-    for base in (COLOR_BG, COLOR_SKY, COLOR_PANEL):
-        for target in (COLOR_TEXT, COLOR_MUTED, COLOR_ACCENT, COLOR_LIGHT, COLOR_GOLD, COLOR_BIRD):
-            a, b = hex_rgb(base), hex_rgb(target)
-            for t in (0.33, 0.66):
-                flat += [round(a[i] + (b[i] - a[i]) * t) for i in range(3)]
     palette.putpalette(flat + [0] * (768 - len(flat)))
 
     quantized = [f.quantize(palette=palette, dither=Image.Dither.NONE) for f in frames]
