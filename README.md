@@ -193,10 +193,11 @@ Everyone plays the same game together. If two people move at the same time, the 
 > Auto-updated every 6 hours via GitHub Actions.
 
 <!--START_SECTION:activity-->
-1. 🌿 Created branch `Gustavo_Henrique` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 18/10
-2. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
-3. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
-4. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
+1. ⬆️ Pushed 1 commit to [gustavoalkimim/petvet](https://github.com/gustavoalkimim/petvet) · 27/10
+2. 🌿 Created branch `Gustavo_Henrique` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 18/10
+3. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
+4. 🌿 Created branch `main` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 14/10
+5. 🌿 Created branch `esquema-sql-dbml` in [ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB](https://github.com/ICEI-PUC-Minas-CC-TI/TI2-Projeto-HUB) · 01/10
 <!--END_SECTION:activity-->
 
 </details>
