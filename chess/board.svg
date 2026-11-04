@@ -66,27 +66,29 @@
 <rect x="284" y="24" width="50" height="50" fill="#6f5cc2"/>
 <rect x="334" y="24" width="50" height="50" fill="#cabdf5"/>
 <rect x="384" y="24" width="50" height="50" fill="#6f5cc2"/>
-<rect x="134" y="374" width="50" height="50" fill="#5eead4" opacity=".45"/>
-<rect x="284" y="224" width="50" height="50" fill="#5eead4" opacity=".45"/>
-<rect x="184" y="174" width="50" height="50" fill="#f6c177" opacity=".45"/>
-<rect x="134" y="224" width="50" height="50" fill="#f6c177" opacity=".45"/>
-<rect class="pulse" x="136" y="226" width="46" height="46" fill="none" stroke="#f6c177" stroke-width="3" rx="4"/>
+<rect x="234" y="324" width="50" height="50" fill="#5eead4" opacity=".45"/>
+<rect x="234" y="274" width="50" height="50" fill="#5eead4" opacity=".45"/>
+<rect x="284" y="24" width="50" height="50" fill="#f6c177" opacity=".45"/>
+<rect x="84" y="224" width="50" height="50" fill="#f6c177" opacity=".45"/>
+<rect class="pulse" x="86" y="226" width="46" height="46" fill="none" stroke="#f6c177" stroke-width="3" rx="4"/>
+<circle cx="259.0" cy="399.0" r="27.500000000000004" fill="url(#chk)"/>
 <text class="p w" x="59.0" y="401.0">♜︎</text>
 <text class="p w" x="59.0" y="351.0">♟︎</text>
 <text class="p w" x="59.0" y="301.0">♞︎</text>
 <text class="p b" x="59.0" y="101.0">♟︎</text>
 <text class="p b" x="59.0" y="51.0">♜︎</text>
 <text class="p w" x="109.0" y="351.0">♟︎</text>
+<g transform="translate(200 -200)"><animateTransform attributeName="transform" type="translate" from="200 -200" to="0 0" begin="0.6s" dur="0.7s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .2 1"/><text class="p b" x="109.0" y="251.0">♝︎</text></g>
 <text class="p b" x="109.0" y="101.0">♟︎</text>
 <text class="p b" x="109.0" y="51.0">♞︎</text>
-<g transform="translate(50 -50)"><animateTransform attributeName="transform" type="translate" from="50 -50" to="0 0" begin="0.6s" dur="0.7s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .2 1"/><text class="p b" x="159.0" y="251.0">♟︎</text></g>
+<text class="p b" x="159.0" y="251.0">♟︎</text>
 <text class="p b" x="159.0" y="101.0">♟︎</text>
 <text class="p b" x="159.0" y="51.0">♝︎</text>
 <text class="p w" x="209.0" y="401.0">♛︎</text>
 <text class="p w" x="209.0" y="251.0">♟︎</text>
 <text class="p b" x="209.0" y="51.0">♛︎</text>
 <text class="p w" x="259.0" y="401.0">♚︎</text>
-<text class="p w" x="259.0" y="351.0">♟︎</text>
+<text class="p w" x="259.0" y="301.0">♟︎</text>
 <text class="p b" x="259.0" y="151.0">♟︎</text>
 <text class="p b" x="259.0" y="51.0">♚︎</text>
 <text class="p w" x="309.0" y="401.0">♝︎</text>
@@ -94,7 +96,6 @@
 <text class="p w" x="309.0" y="251.0">♝︎</text>
 <text class="p b" x="309.0" y="151.0">♞︎</text>
 <text class="p b" x="309.0" y="101.0">♟︎</text>
-<text class="p b" x="309.0" y="51.0">♝︎</text>
 <text class="p w" x="359.0" y="401.0">♞︎</text>
 <text class="p w" x="359.0" y="351.0">♟︎</text>
 <text class="p b" x="359.0" y="101.0">♟︎</text>
@@ -119,24 +120,25 @@
 <text class="c" x="409.0" y="440" text-anchor="middle">h</text>
 <text class="c" x="20" y="53.0" text-anchor="middle">8</text>
 <text class="t" x="470" y="38" font-size="12" letter-spacing="3" fill="#A685E2" style="fill:#A685E2">COMMUNITY  vs  ENGINE</text>
-<text class="t" x="470" y="72" font-size="22" font-weight="bold">Your move, White</text>
-<text class="t m" x="470" y="96" font-size="13">Game #1 · move 5 · 1 player</text>
+<text class="t" x="470" y="72" font-size="22" font-weight="bold">Your move, White (check!)</text>
+<text class="t m" x="470" y="96" font-size="13">Game #1 · move 6 · 1 player</text>
 <rect x="470" y="120" width="340" height="14" rx="7" fill="#21262d"/>
-<rect x="470" y="120" width="138.1" height="14" rx="7" fill="url(#bar)"><animate attributeName="width" from="170.0" to="138.1" dur="1.2s" begin="0.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .2 1"/></rect>
-<text class="t m" x="470" y="152" font-size="12">eval -0.95 (White's view)</text>
-<text class="t" x="470" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">11</text>
+<rect x="470" y="120" width="131.3" height="14" rx="7" fill="url(#bar)"><animate attributeName="width" from="170.0" to="131.3" dur="1.2s" begin="0.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .2 1"/></rect>
+<text class="t m" x="470" y="152" font-size="12">eval -1.16 (White's view)</text>
+<text class="t" x="470" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">12</text>
 <text class="t m" x="470" y="204" font-size="11">depth</text>
-<text class="t" x="558" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">4.6M</text>
+<text class="t" x="558" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">4.7M</text>
 <text class="t m" x="558" y="204" font-size="11">positions</text>
-<text class="t" x="646" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">2.0M/s</text>
+<text class="t" x="646" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">1.6M/s</text>
 <text class="t m" x="646" y="204" font-size="11">speed</text>
-<text class="t" x="734" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">2.3s</text>
+<text class="t" x="734" y="186" font-size="20" font-weight="bold" style="fill:#e8e1ff">2.9s</text>
 <text class="t m" x="734" y="204" font-size="11">time</text>
-<text class="t m" x="470" y="236" font-size="12">engine expects: <tspan style="fill:#c9d1d9">dxc4 Nc2 Ne4</tspan></text>
+<text class="t m" x="470" y="236" font-size="12">engine expects: <tspan style="fill:#c9d1d9">Bb4+ Ke2 Bxa3 Qa4+ Nc6 Qxa3 Nh5</tspan></text>
 <text class="t" x="470" y="272" font-size="12" letter-spacing="2" style="fill:#A685E2">LAST MOVES</text>
-<text class="t" x="470" y="296" font-size="13"><tspan class="m">4.</tspan> Bf4 <tspan style="fill:#f6c177">dxc4</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
-<text class="t" x="470" y="318" font-size="13"><tspan class="m">3.</tspan> Na3 <tspan style="fill:#f6c177">d5</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
-<text class="t" x="470" y="340" font-size="13"><tspan class="m">2.</tspan> c4 <tspan style="fill:#f6c177">e6</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
-<text class="t" x="470" y="362" font-size="13"><tspan class="m">1.</tspan> d4 <tspan style="fill:#f6c177">Nf6</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
+<text class="t" x="470" y="296" font-size="13"><tspan class="m">5.</tspan> e3 <tspan style="fill:#f6c177">Bb4+</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
+<text class="t" x="470" y="318" font-size="13"><tspan class="m">4.</tspan> Bf4 <tspan style="fill:#f6c177">dxc4</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
+<text class="t" x="470" y="340" font-size="13"><tspan class="m">3.</tspan> Na3 <tspan style="fill:#f6c177">d5</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
+<text class="t" x="470" y="362" font-size="13"><tspan class="m">2.</tspan> c4 <tspan style="fill:#f6c177">e6</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
+<text class="t" x="470" y="384" font-size="13"><tspan class="m">1.</tspan> d4 <tspan style="fill:#f6c177">Nf6</tspan><tspan class="m"> · @lucascoelho74</tspan></text>
 <text class="t m" x="470" y="434" font-size="11">engine record: 0W 0D 0L · written from scratch in C</text>
 </svg>
