@@ -5,7 +5,9 @@
       "d2d4",
       "g8f6",
       "c2c4",
-      "e7e6"
+      "e7e6",
+      "b1a3",
+      "d7d5"
     ],
     "players": [
       "lucascoelho74"
@@ -26,23 +28,41 @@
         "user": "lucascoelho74",
         "issue": 3,
         "at": "2026-11-04T20:29:19Z"
+      },
+      {
+        "n": 3,
+        "white": "Na3",
+        "black": "d5",
+        "user": "lucascoelho74",
+        "issue": 4,
+        "at": "2026-11-04T20:30:30Z"
       }
     ],
     "engine": {
-      "best": "e7e6",
-      "san": "e6",
-      "score": 10,
+      "best": "d7d5",
+      "san": "d5",
+      "score": 42,
       "mate_in": 0,
-      "depth": 13,
-      "nodes": 6617104,
-      "time_ms": 2592,
-      "nps": 2552895,
+      "depth": 11,
+      "nodes": 3118081,
+      "time_ms": 2166,
+      "nps": 1439557,
       "pv_san": [
-        "e6",
-        "Nd2",
-        "Nc6"
+        "d5",
+        "Nf3",
+        "Bb4+",
+        "Bd2",
+        "Bxd2+",
+        "Qxd2",
+        "Nc6",
+        "cxd5",
+        "exd5",
+        "Nb5",
+        "a6",
+        "Nc3",
+        "O-O"
       ],
-      "ply": 3
+      "ply": 5
     },
     "started_at": "2026-10-22T12:26:48Z"
   },
@@ -53,7 +73,7 @@
   },
   "leaderboard": {
     "lucascoelho74": {
-      "moves": 2,
+      "moves": 3,
       "wins": 0
     }
   },
