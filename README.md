@@ -124,7 +124,7 @@ Everyone plays the same game together. If two people move at the same time, the 
 <!--START_SECTION:tetris-->
 | Generation | Training for | Best fitness | Record | Champion (showcase game) |
 | :---: | :---: | :---: | :---: | :---: |
-| **6** | 1 week | 44,200 | 44,961 (gen 5) | 399 lines · 0 tetrises |
+| **8** | 2 weeks | 46,667 | 46,667 (gen 8) | 396 lines · 4 tetrises |
 
 <sub>8 board features → 8 hidden neurons → 1 move score. 100 networks per generation, each plays 3 games of up to 1,000 pieces; the best 5 survive and the rest are bred by tournament selection, crossover and mutation — [source](./tetris/engine) · [how it works](./tetris/README.md)</sub>
 <!--END_SECTION:tetris-->
