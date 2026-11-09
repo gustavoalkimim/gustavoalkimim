@@ -146,7 +146,7 @@ Everyone plays the same game together. If two people move at the same time, the 
 <!--START_SECTION:flappy-->
 | Generation | Training for | Best bird | Swarm average | Record | Hardest phase reached |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| **4** | 1 week | 128 pipes | 4.1 pipes | 164 (gen 2) | variable spacing |
+| **6** | 2 weeks | 154 pipes | 12.9 pipes | 164 (gen 2) | variable spacing |
 
 <sub>Each bird sees 6 numbers (height, velocity, next gap) → 6 hidden neurons → flap or not, 60 times a second. All 100 birds fly the same 3 worlds per generation; the gap narrows, the speed rises, pipes start moving at pipe 50 and spacing varies from pipe 150 — [source](./flappy/engine) · [how it works](./flappy/README.md)</sub>
 <!--END_SECTION:flappy-->
