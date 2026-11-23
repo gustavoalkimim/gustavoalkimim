@@ -81,6 +81,24 @@
    "best_pipes": 191.0,
    "mean_pipes": 42.04,
    "at": "2026-11-16T20:02:03Z"
+  },
+  {
+   "generation": 9,
+   "best": 187988.0,
+   "mean": 62628.5,
+   "median": 52979.0,
+   "best_pipes": 176.3,
+   "mean_pipes": 58.5,
+   "at": "2026-11-23T21:54:52Z"
+  },
+  {
+   "generation": 10,
+   "best": 218590.0,
+   "mean": 71893.5,
+   "median": 64728.3,
+   "best_pipes": 205.3,
+   "mean_pipes": 67.19,
+   "at": "2026-11-23T21:54:52Z"
   }
  ]
 }
