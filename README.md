@@ -207,11 +207,11 @@ Everyone plays the same game together. If two people move at the same time, the 
 > Auto-updated every 6 hours via GitHub Actions.
 
 <!--START_SECTION:activity-->
-1. 🌿 Created branch `xbox-portifolio` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 18/11
-2. 🌿 Created branch `main` in [gustavoalkimim/Prova_de_DIW_2](https://github.com/gustavoalkimim/Prova_de_DIW_2) · 10/11
-3. ⬆️ Pushed 1 commit to [gustavoalkimim/petvet](https://github.com/gustavoalkimim/petvet) · 05/11
-4. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 05/11
-5. 🌿 Created branch `gh-pages` in [gustavoalkimim/Lab2_DIW](https://github.com/gustavoalkimim/Lab2_DIW) · 03/11
+1. ⬆️ Pushed 1 commit to [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 24/11
+2. 🌿 Created branch `xbox-portifolio` in [gustavoalkimim/Portifolio](https://github.com/gustavoalkimim/Portifolio) · 18/11
+3. 🌿 Created branch `main` in [gustavoalkimim/Prova_de_DIW_2](https://github.com/gustavoalkimim/Prova_de_DIW_2) · 10/11
+4. ⬆️ Pushed 1 commit to [gustavoalkimim/petvet](https://github.com/gustavoalkimim/petvet) · 05/11
+5. ⬆️ Pushed 1 commit to [gustavoalkimim/Prova_de_DIW](https://github.com/gustavoalkimim/Prova_de_DIW) · 05/11
 <!--END_SECTION:activity-->
 
 </details>
